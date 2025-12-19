@@ -70,18 +70,21 @@
             animation: floatAnimation 3s ease-in-out infinite, fadeIn 1s ease-out 0.3s both;
         }
 
-        .gorilla-img {
-            max-width: 400px;
-            width: 100%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .gorilla-emoji {
+            font-size: 8rem;
+            filter: drop-shadow(0 20px 40px rgba(99, 102, 241, 0.5));
+            transition: transform 0.3s ease;
         }
 
-        .gorilla-img:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 30px 80px rgba(99, 102, 241, 0.5);
+        .gorilla-emoji:hover {
+            transform: scale(1.1) rotate(5deg);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg) scale(1.1); }
+            25% { transform: rotate(-10deg) scale(1.1); }
+            75% { transform: rotate(10deg) scale(1.1); }
         }
 
         @keyframes floatAnimation {
@@ -186,8 +189,8 @@
             .message {
                 font-size: 1.8rem;
             }
-            .gorilla-img {
-                max-width: 300px;
+            .gorilla-emoji {
+                font-size: 5rem;
             }
         }
     </style>
@@ -200,7 +203,7 @@
         <div class="logo">TOPOS LABS</div>
 
         <div class="image-container">
-            <img src="https://i.imgur.com/JkXOQRD.png" alt="Gorilla" class="gorilla-img" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Gorilla_gorilla_gorilla8.jpg/800px-Gorilla_gorilla_gorilla8.jpg'">
+            <div class="gorilla-emoji">🖕🦍🖕</div>
         </div>
 
         <div class="message">стас пошел на хуй</div>
