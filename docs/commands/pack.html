@@ -93,11 +93,11 @@
             <h2>Options</h2>
             <div class="option">
                 <code>-f, --format &lt;FORMAT&gt;</code>
-                <p>Output format: xml, markdown, json, yaml, toon (default: xml)</p>
+                <p>Output format: xml, markdown, json, yaml, toon, plain (default: xml)</p>
             </div>
             <div class="option">
                 <code>-m, --model &lt;MODEL&gt;</code>
-                <p>Target model for token counting: claude, gpt4o, gpt5, gemini, llama</p>
+                <p>Target model for token counting: claude, gpt4, gpt4o, gemini, llama, mistral, deepseek, qwen, cohere, grok</p>
             </div>
             <div class="option">
                 <code>-o, --output &lt;PATH&gt;</code>
@@ -131,10 +131,15 @@ infiniloom pack --security-check -o context.xml</code></pre>
 
             <h2>Supported Models</h2>
             <ul>
-                <li>Anthropic Claude (claude-3, claude-4)</li>
-                <li>OpenAI GPT (gpt-4, gpt-4o, gpt-5)</li>
+                <li>Anthropic Claude</li>
+                <li>OpenAI GPT-4, GPT-4o</li>
                 <li>Google Gemini</li>
-                <li>Meta LLaMA</li>
+                <li>Meta Llama</li>
+                <li>Mistral</li>
+                <li>DeepSeek</li>
+                <li>Qwen</li>
+                <li>Cohere</li>
+                <li>Grok</li>
             </ul>
         </main>
     </div>

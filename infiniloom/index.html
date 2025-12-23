@@ -174,11 +174,17 @@
 
         .install-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 16px;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .install-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
             .install-grid {
                 grid-template-columns: 1fr;
             }
@@ -397,6 +403,7 @@
         .install-card:nth-child(1) { animation-delay: 0.1s; }
         .install-card:nth-child(2) { animation-delay: 0.15s; }
         .install-card:nth-child(3) { animation-delay: 0.2s; }
+        .install-card:nth-child(4) { animation-delay: 0.25s; }
 
         .install-card:hover {
             transform: translateY(-2px);
@@ -479,7 +486,7 @@
                 <div class="hero-content">
                     <div class="hero-badge">Open Source · Rust · Fast</div>
                     <h1>High-performance repository context generator for LLMs</h1>
-                    <p>Transform codebases into optimized formats for Claude, GPT, Gemini, and other large language models. Built in Rust for maximum performance.</p>
+                    <p>Transform codebases into optimized formats for Claude, GPT-4, Gemini, Llama, Mistral, DeepSeek, Qwen, and other large language models. Built in Rust for maximum performance.</p>
                     <div class="hero-links">
                         <a href="/docs/" class="btn btn-primary">Documentation</a>
                         <a href="https://github.com/Topos-Labs/infiniloom" target="_blank" class="btn btn-secondary">
@@ -506,8 +513,12 @@
                         <code>brew install infiniloom</code>
                     </div>
                     <div class="install-card">
+                        <h4>pip</h4>
+                        <code>pip install infiniloom</code>
+                    </div>
+                    <div class="install-card">
                         <h4>npm</h4>
-                        <code>npm install -g infiniloom</code>
+                        <code>npm install infiniloom-node</code>
                     </div>
                 </div>
             </div>
@@ -531,7 +542,7 @@
                     </div>
                     <div class="feature">
                         <h3>Multi-Format Output</h3>
-                        <p>Export to XML, Markdown, JSON, or YAML with model-specific optimizations.</p>
+                        <p>Export to XML, Markdown, JSON, YAML, TOON, or plain text with model-specific optimizations.</p>
                     </div>
                     <div class="feature">
                         <h3>Token Management</h3>

@@ -236,17 +236,20 @@
 
         <main class="content">
             <h1>InfiniLoom Documentation</h1>
-            <p>InfiniLoom is a high-performance repository context generator for large language models. Transform your codebase into optimized formats for Claude, GPT, Gemini, and other AI models.</p>
+            <p>InfiniLoom is a high-performance repository context generator for large language models. Transform your codebase into optimized formats for Claude, GPT-4, Gemini, Llama, Mistral, DeepSeek, Qwen, and other AI models.</p>
 
             <h2>Installation</h2>
-            <pre><code><span class="comment"># Using Cargo</span>
+            <pre><code><span class="comment"># Using Cargo (Rust)</span>
 cargo install infiniloom
 
 <span class="comment"># Using Homebrew</span>
 brew install infiniloom
 
-<span class="comment"># Using npm</span>
-npm install -g infiniloom</code></pre>
+<span class="comment"># Using pip (Python)</span>
+pip install infiniloom
+
+<span class="comment"># Using npm (Node.js)</span>
+npm install infiniloom-node</code></pre>
 
             <h2>Quick Start</h2>
             <pre><code><span class="comment"># Pack a repository for Claude</span>
@@ -301,21 +304,26 @@ infiniloom scan ./my-project --security-check</code></pre>
             <h2>Output Formats</h2>
             <p>InfiniLoom supports multiple output formats optimized for different use cases:</p>
             <ul>
-                <li><strong>XML</strong> — Baseline format with structured tags</li>
-                <li><strong>Markdown</strong> — Human-readable with code blocks</li>
+                <li><strong>XML</strong> — Claude-optimized structured format</li>
+                <li><strong>Markdown</strong> — GPT-optimized human-readable format</li>
                 <li><strong>JSON</strong> — Machine-readable structured data</li>
-                <li><strong>YAML</strong> — Clean configuration-style output</li>
-                <li><strong>TOON</strong> — Most token-efficient format</li>
+                <li><strong>YAML</strong> — Gemini-optimized long context format</li>
+                <li><strong>TOON</strong> — Most token-efficient compressed format</li>
+                <li><strong>Plain</strong> — Simple text output</li>
             </ul>
 
             <h2>Supported Models</h2>
             <p>Token counting and optimization for:</p>
             <ul>
-                <li>Anthropic Claude (claude-3, claude-4)</li>
-                <li>OpenAI GPT (gpt-4, gpt-4o, gpt-5)</li>
+                <li>Anthropic Claude (Claude 3, Claude 4)</li>
+                <li>OpenAI GPT (GPT-4, GPT-4o)</li>
                 <li>Google Gemini</li>
-                <li>Meta LLaMA</li>
-                <li>And more...</li>
+                <li>Meta Llama</li>
+                <li>Mistral</li>
+                <li>DeepSeek</li>
+                <li>Qwen</li>
+                <li>Cohere</li>
+                <li>Grok</li>
             </ul>
         </main>
     </div>
