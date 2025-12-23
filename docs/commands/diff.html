@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>diff - InfiniLoom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg: #0a0a0a; --surface: #141414; --border: rgba(255,255,255,0.1); --text: #ffffff; --text-secondary: #888888; --text-tertiary: #555555; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        a { color: inherit; text-decoration: none; }
+        code, pre { font-family: 'JetBrains Mono', monospace; font-size: 14px; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); height: 64px; }
+        .nav-content { max-width: 1400px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 100%; }
+        .logo { font-size: 15px; font-weight: 600; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-size: 14px; color: var(--text-secondary); transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
+        .docs-layout { display: flex; padding-top: 64px; min-height: 100vh; }
+        .sidebar { width: 260px; position: fixed; top: 64px; left: 0; bottom: 0; padding: 32px 24px; border-right: 1px solid var(--border); overflow-y: auto; }
+        .sidebar-section { margin-bottom: 32px; }
+        .sidebar-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 12px; }
+        .sidebar-links { list-style: none; }
+        .sidebar-links li { margin-bottom: 4px; }
+        .sidebar-links a { display: block; padding: 8px 12px; font-size: 14px; color: var(--text-secondary); border-radius: 6px; transition: all 0.2s; }
+        .sidebar-links a:hover { color: var(--text); background: var(--surface); }
+        .sidebar-links a.active { color: var(--text); background: var(--surface); }
+        .content { flex: 1; margin-left: 260px; padding: 48px 64px; max-width: 900px; }
+        .content h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+        .content > p:first-of-type { font-size: 18px; color: var(--text-secondary); margin-bottom: 48px; line-height: 1.7; }
+        .content h2 { font-size: 18px; font-weight: 600; margin: 40px 0 16px; padding-top: 24px; border-top: 1px solid var(--border); }
+        .content h2:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+        .content p { color: var(--text-secondary); margin-bottom: 16px; line-height: 1.8; }
+        .content ul { color: var(--text-secondary); margin: 0 0 24px 24px; line-height: 1.8; }
+        .content li { margin-bottom: 8px; }
+        .content code { background: var(--surface); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+        .content pre { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; overflow-x: auto; margin: 24px 0; }
+        .content pre code { background: none; padding: 0; font-size: 14px; line-height: 1.7; color: var(--text-secondary); }
+        .comment { color: var(--text-tertiary); }
+        .option { margin-bottom: 16px; }
+        .option code { font-weight: 500; color: var(--text); }
+        .option p { margin: 4px 0 0 0; font-size: 14px; }
+        @media (max-width: 900px) { .sidebar { display: none; } .content { margin-left: 0; padding: 32px 24px; } .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="/" class="logo">Topos Labs</a>
+            <ul class="nav-links">
+                <li><a href="/infiniloom/">InfiniLoom</a></li>
+                <li><a href="/docs/" class="active">Docs</a></li>
+                <li><a href="https://github.com/Topos-Labs" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="docs-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Getting Started</div>
+                <ul class="sidebar-links"><li><a href="/docs/">Overview</a></li></ul>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Commands</div>
+                <ul class="sidebar-links">
+                    <li><a href="/docs/commands/pack.html">pack</a></li>
+                    <li><a href="/docs/commands/map.html">map</a></li>
+                    <li><a href="/docs/commands/scan.html">scan</a></li>
+                    <li><a href="/docs/commands/index.html">index</a></li>
+                    <li><a href="/docs/commands/diff.html" class="active">diff</a></li>
+                    <li><a href="/docs/commands/impact.html">impact</a></li>
+                    <li><a href="/docs/commands/chunk.html">chunk</a></li>
+                    <li><a href="/docs/commands/init.html">init</a></li>
+                    <li><a href="/docs/commands/info.html">info</a></li>
+                </ul>
+            </div>
+        </aside>
+        <main class="content">
+            <h1>diff</h1>
+            <p>Generates LLM-optimized context for code changes by identifying modified files and expanding context to include related code.</p>
+
+            <h2>Usage</h2>
+            <pre><code>infiniloom diff [REF] [OPTIONS]</code></pre>
+
+            <h2>Description</h2>
+            <p>The <code>diff</code> command identifies and classifies code changes, providing context expansion at different depth levels. Supports various reference formats including unstaged changes, staged changes, commits, and branches.</p>
+
+            <h2>Options</h2>
+            <div class="option">
+                <code>--staged</code>
+                <p>Use staged changes</p>
+            </div>
+            <div class="option">
+                <code>--depth &lt;LEVEL&gt;</code>
+                <p>Context depth: 1-3 (default: 2)</p>
+            </div>
+            <div class="option">
+                <code>--budget &lt;TOKENS&gt;</code>
+                <p>Token limit (default: 50,000)</p>
+            </div>
+            <div class="option">
+                <code>--format &lt;FORMAT&gt;</code>
+                <p>Output format: xml, json, markdown</p>
+            </div>
+            <div class="option">
+                <code>--include-diff</code>
+                <p>Include actual diff content</p>
+            </div>
+            <div class="option">
+                <code>--include-history</code>
+                <p>Include recent commit history</p>
+            </div>
+
+            <h2>Examples</h2>
+            <pre><code><span class="comment"># Unstaged changes context</span>
+infiniloom diff
+
+<span class="comment"># Staged changes context</span>
+infiniloom diff --staged
+
+<span class="comment"># Branch comparison</span>
+infiniloom diff main..feature
+
+<span class="comment"># With expanded context</span>
+infiniloom diff --depth 3 --include-diff</code></pre>
+        </main>
+    </div>
+</body>
+</html>

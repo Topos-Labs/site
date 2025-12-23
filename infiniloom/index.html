@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfiniLoom - Topos Labs</title>
+    <meta name="description" content="High-performance repository context generator for LLMs">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: rgba(255,255,255,0.1);
+            --text: #ffffff;
+            --text-secondary: #888888;
+            --text-tertiary: #555555;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10,10,10,0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 160px 0 80px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* Install */
+        .install {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+            margin-bottom: 32px;
+        }
+
+        .install-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .install-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .install-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .install-card h4 {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+        }
+
+        .install-card code {
+            display: block;
+            color: var(--text-secondary);
+            word-break: break-all;
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature {
+            padding: 24px 0;
+        }
+
+        .feature h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Usage */
+        .usage {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 24px;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        .code-content {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .code-content .comment {
+            color: var(--text-tertiary);
+        }
+
+        /* Languages */
+        .languages {
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .lang-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .lang-tag {
+            font-size: 13px;
+            color: var(--text-secondary);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 80px 0;
+        }
+
+        .cta-content {
+            max-width: 500px;
+        }
+
+        .cta h2 {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .cta p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <a href="/" class="logo">Topos Labs</a>
+            <ul class="nav-links">
+                <li><a href="/infiniloom/" class="active">InfiniLoom</a></li>
+                <li><a href="/docs/">Docs</a></li>
+                <li><a href="https://github.com/Topos-Labs" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">Open Source · Rust · Fast</div>
+                    <h1>High-performance repository context generator for LLMs</h1>
+                    <p>Transform codebases into optimized formats for Claude, GPT, Gemini, and other large language models. Built in Rust for maximum performance.</p>
+                    <div class="hero-links">
+                        <a href="/docs/" class="btn btn-primary">Documentation</a>
+                        <a href="https://github.com/Topos-Labs/infiniloom" target="_blank" class="btn btn-secondary">
+                            View on GitHub
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="install">
+            <div class="container">
+                <div class="section-label">Installation</div>
+                <div class="install-grid">
+                    <div class="install-card">
+                        <h4>Cargo</h4>
+                        <code>cargo install infiniloom</code>
+                    </div>
+                    <div class="install-card">
+                        <h4>Homebrew</h4>
+                        <code>brew install infiniloom</code>
+                    </div>
+                    <div class="install-card">
+                        <h4>npm</h4>
+                        <code>npm install -g infiniloom</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="section-label">Features</div>
+                <div class="features-grid">
+                    <div class="feature">
+                        <h3>21 Languages</h3>
+                        <p>Tree-sitter based parsing for accurate symbol extraction across all major programming languages.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>PageRank Symbols</h3>
+                        <p>Intelligent symbol ranking using PageRank algorithm to identify the most important code structures.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Secret Detection</h3>
+                        <p>Automatic detection and redaction of API keys, passwords, and other sensitive information.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Multi-Format Output</h3>
+                        <p>Export to XML, Markdown, JSON, or YAML with model-specific optimizations.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Token Management</h3>
+                        <p>Built-in token counting and budget management for optimal context window usage.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Language Bindings</h3>
+                        <p>Native Python and Node.js bindings for seamless integration into your applications.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="usage">
+            <div class="container">
+                <div class="section-label">Quick Start</div>
+                <div class="code-block">
+                    <div class="code-header">Terminal</div>
+                    <div class="code-content">
+<pre><code><span class="comment"># Pack a repository for Claude</span>
+infiniloom pack ./my-project --model claude --output context.xml
+
+<span class="comment"># Generate a repository map</span>
+infiniloom map ./my-project
+
+<span class="comment"># Scan for secrets before sharing</span>
+infiniloom scan ./my-project
+
+<span class="comment"># Analyze impact of changes</span>
+infiniloom impact ./my-project --files src/main.rs</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="languages">
+            <div class="container">
+                <div class="section-label">Supported Languages</div>
+                <div class="lang-list">
+                    <span class="lang-tag">Rust</span>
+                    <span class="lang-tag">Python</span>
+                    <span class="lang-tag">JavaScript</span>
+                    <span class="lang-tag">TypeScript</span>
+                    <span class="lang-tag">Go</span>
+                    <span class="lang-tag">Java</span>
+                    <span class="lang-tag">C</span>
+                    <span class="lang-tag">C++</span>
+                    <span class="lang-tag">C#</span>
+                    <span class="lang-tag">Ruby</span>
+                    <span class="lang-tag">PHP</span>
+                    <span class="lang-tag">Swift</span>
+                    <span class="lang-tag">Kotlin</span>
+                    <span class="lang-tag">Scala</span>
+                    <span class="lang-tag">Elixir</span>
+                    <span class="lang-tag">Haskell</span>
+                    <span class="lang-tag">Lua</span>
+                    <span class="lang-tag">SQL</span>
+                    <span class="lang-tag">HTML</span>
+                    <span class="lang-tag">CSS</span>
+                    <span class="lang-tag">Markdown</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to get started?</h2>
+                    <p>Read the documentation or dive straight into the code on GitHub.</p>
+                    <div class="hero-links">
+                        <a href="/docs/" class="btn btn-primary">Read the Docs</a>
+                        <a href="https://github.com/Topos-Labs/infiniloom" target="_blank" class="btn btn-secondary">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-text">© 2025 Topos Labs</div>
+            <div class="footer-links">
+                <a href="https://github.com/Topos-Labs" target="_blank">GitHub</a>
+                <a href="/docs/">Documentation</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

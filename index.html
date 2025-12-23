@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topos Labs</title>
+    <meta name="description" content="Building developer tools for the AI era">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,230 +16,360 @@
         }
 
         :root {
-            --primary: #6366f1;
-            --accent: #22d3ee;
-            --bg-dark: #0a0a0f;
-            --text-primary: #ffffff;
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: rgba(255,255,255,0.1);
+            --text: #ffffff;
+            --text-secondary: #888888;
+            --text-tertiary: #555555;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            background:
-                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.3), transparent),
-                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(34, 211, 238, 0.2), transparent);
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
         .container {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .image-container {
-            margin-bottom: 2rem;
-            animation: floatAnimation 3s ease-in-out infinite, fadeIn 1s ease-out 0.3s both;
-        }
-
-        .gorilla-emoji {
-            font-size: 8rem;
-            filter: drop-shadow(0 20px 40px rgba(99, 102, 241, 0.5));
-            transition: transform 0.3s ease;
-        }
-
-        .gorilla-emoji:hover {
-            transform: scale(1.1) rotate(5deg);
-            animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: rotate(0deg) scale(1.1); }
-            25% { transform: rotate(-10deg) scale(1.1); }
-            75% { transform: rotate(10deg) scale(1.1); }
-        }
-
-        @keyframes floatAnimation {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .message {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            background: linear-gradient(135deg, var(--primary), var(--accent), #f472b6);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientText 3s ease-in-out infinite, fadeIn 1s ease-out 0.5s both;
-            text-shadow: 0 0 40px rgba(99, 102, 241, 0.5);
-        }
-
-        @keyframes gradientText {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1.25rem 3rem;
-            border-radius: 100px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            background: linear-gradient(135deg, var(--primary), #818cf8);
-            color: white;
-            box-shadow: 0 4px 30px rgba(99, 102, 241, 0.4);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            animation: fadeIn 1s ease-out 0.7s both, pulse 2s ease-in-out infinite;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.6);
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 4px 30px rgba(99, 102, 241, 0.4); }
-            50% { box-shadow: 0 4px 50px rgba(99, 102, 241, 0.7); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Particles */
-        .particles {
+        /* Navigation */
+        nav {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10,10,10,0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
         }
 
-        .particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: particleFloat 8s ease-in-out infinite;
-            box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
         }
 
-        @keyframes particleFloat {
-            0%, 100% { transform: translateY(100vh) scale(0); opacity: 0; }
-            10% { opacity: 1; transform: scale(1); }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+        .logo {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
 
-        /* Glitch effect on hover */
-        .message:hover {
-            animation: glitch 0.3s ease-in-out infinite, gradientText 3s ease-in-out infinite;
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
         }
 
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-2px, 2px); }
-            40% { transform: translate(-2px, -2px); }
-            60% { transform: translate(2px, 2px); }
-            80% { transform: translate(2px, -2px); }
-            100% { transform: translate(0); }
+        .nav-links a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: color 0.2s;
         }
 
-        @media (max-width: 600px) {
-            .message {
-                font-size: 1.8rem;
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .hero-links a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding-bottom: 2px;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .hero-links a:hover {
+            color: var(--text);
+            border-color: var(--text);
+        }
+
+        /* Products */
+        .products {
+            padding: 120px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+            margin-bottom: 48px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
             }
-            .gorilla-emoji {
-                font-size: 5rem;
+        }
+
+        .product-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            transition: border-color 0.2s;
+        }
+
+        .product-card:hover {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .product-badge {
+            display: inline-block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            background: rgba(255,255,255,0.05);
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .product-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .product-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .product-link {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .product-link:hover {
+            color: var(--text);
+        }
+
+        .product-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .coming-soon {
+            opacity: 0.6;
+        }
+
+        .coming-soon .product-badge {
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* About */
+        .about {
+            padding: 120px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .about-content {
+            max-width: 500px;
+        }
+
+        .about h2 {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            margin-bottom: 24px;
+        }
+
+        .about p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
-    <div class="particles" id="particles"></div>
-
-    <div class="container">
-        <div class="logo">TOPOS LABS</div>
-
-        <div class="image-container">
-            <div class="gorilla-emoji">🖕🦍🖕</div>
+    <nav>
+        <div class="container nav-content">
+            <a href="/" class="logo">Topos Labs</a>
+            <ul class="nav-links">
+                <li><a href="/infiniloom/">InfiniLoom</a></li>
+                <li><a href="/docs/">Docs</a></li>
+                <li><a href="https://github.com/Topos-Labs" target="_blank">GitHub</a></li>
+            </ul>
         </div>
+    </nav>
 
-        <div class="message">стас пошел на хуй</div>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Building developer tools for the AI era</h1>
+                    <p>We create high-performance tools that help developers work more effectively with large language models.</p>
+                    <div class="hero-links">
+                        <a href="/infiniloom/">Explore InfiniLoom</a>
+                        <a href="https://github.com/Topos-Labs" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <a href="#" class="btn" onclick="alert('Стас точно пошел на хуй! 🦍'); return false;">
-            Know More
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-        </a>
-    </div>
+        <section class="products" id="products">
+            <div class="container">
+                <div class="section-label">Products</div>
+                <div class="products-grid">
+                    <a href="/infiniloom/" class="product-card">
+                        <div class="product-badge">Available</div>
+                        <h3>InfiniLoom</h3>
+                        <p>High-performance repository context generator for LLMs. Transform codebases into optimized formats for Claude, GPT, Gemini, and other models.</p>
+                        <span class="product-link">
+                            Learn more
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </a>
+                    <div class="product-card coming-soon">
+                        <div class="product-badge">Coming Soon</div>
+                        <h3>Mahler</h3>
+                        <p>An orchestrator for local coding agents. Coordinate multiple AI agents to work together on complex software engineering tasks.</p>
+                        <span class="product-link">
+                            Stay tuned
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <script>
-        // Create particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 15; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 8 + 's';
-            particle.style.animationDuration = (6 + Math.random() * 6) + 's';
-            particlesContainer.appendChild(particle);
-        }
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about-content">
+                    <h2>About</h2>
+                    <p>Topos Labs builds infrastructure for AI-assisted software development. Our tools are designed for performance, reliability, and seamless integration into existing workflows.</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-        // Easter egg: Konami code
-        let konamiCode = [];
-        const secretCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.keyCode);
-            if (konamiCode.length > 10) konamiCode.shift();
-            if (konamiCode.join(',') === secretCode.join(',')) {
-                document.body.style.animation = 'glitch 0.1s infinite';
-                setTimeout(() => document.body.style.animation = '', 2000);
-            }
-        });
-    </script>
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-text">© 2025 Topos Labs</div>
+            <div class="footer-links">
+                <a href="https://github.com/Topos-Labs" target="_blank">GitHub</a>
+                <a href="/docs/">Documentation</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
