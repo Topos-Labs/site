@@ -359,6 +359,90 @@
             color: var(--text);
         }
 
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge { animation: fadeIn 0.6s ease-out both; }
+        .hero h1 { animation: fadeIn 0.6s ease-out 0.1s both; }
+        .hero p { animation: fadeIn 0.6s ease-out 0.15s both; }
+        .hero-links { animation: fadeIn 0.6s ease-out 0.2s both; }
+
+        .btn {
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+        }
+
+        .install-card {
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out both;
+            transition: all 0.2s ease;
+        }
+
+        .install-card:nth-child(1) { animation-delay: 0.1s; }
+        .install-card:nth-child(2) { animation-delay: 0.15s; }
+        .install-card:nth-child(3) { animation-delay: 0.2s; }
+
+        .install-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .feature {
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out both;
+        }
+
+        .feature:nth-child(1) { animation-delay: 0.1s; }
+        .feature:nth-child(2) { animation-delay: 0.15s; }
+        .feature:nth-child(3) { animation-delay: 0.2s; }
+        .feature:nth-child(4) { animation-delay: 0.25s; }
+        .feature:nth-child(5) { animation-delay: 0.3s; }
+        .feature:nth-child(6) { animation-delay: 0.35s; }
+
+        .code-block {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .lang-tag {
+            opacity: 0;
+            animation: fadeIn 0.4s ease-out both;
+            transition: all 0.2s ease;
+        }
+
+        .lang-tag:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-2px);
+        }
+
+        .lang-list .lang-tag:nth-child(1) { animation-delay: 0.05s; }
+        .lang-list .lang-tag:nth-child(2) { animation-delay: 0.08s; }
+        .lang-list .lang-tag:nth-child(3) { animation-delay: 0.11s; }
+        .lang-list .lang-tag:nth-child(4) { animation-delay: 0.14s; }
+        .lang-list .lang-tag:nth-child(5) { animation-delay: 0.17s; }
+        .lang-list .lang-tag:nth-child(6) { animation-delay: 0.20s; }
+        .lang-list .lang-tag:nth-child(7) { animation-delay: 0.23s; }
+        .lang-list .lang-tag:nth-child(8) { animation-delay: 0.26s; }
+        .lang-list .lang-tag:nth-child(9) { animation-delay: 0.29s; }
+        .lang-list .lang-tag:nth-child(10) { animation-delay: 0.32s; }
+        .lang-list .lang-tag:nth-child(n+11) { animation-delay: 0.35s; }
+
         /* Mobile */
         @media (max-width: 640px) {
             .hero h1 {
