@@ -190,21 +190,111 @@
             line-height: 1.6;
         }
 
+        /* Mobile Docs Navigation */
+        .mobile-docs-nav {
+            display: none;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .mobile-docs-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .mobile-docs-nav-header svg {
+            transition: transform 0.2s;
+        }
+
+        .mobile-docs-nav.open .mobile-docs-nav-header svg {
+            transform: rotate(180deg);
+        }
+
+        .mobile-docs-nav-content {
+            display: none;
+            padding: 0 16px 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .mobile-docs-nav.open .mobile-docs-nav-content {
+            display: block;
+        }
+
+        .mobile-docs-nav-section {
+            margin-top: 16px;
+        }
+
+        .mobile-docs-nav-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+        }
+
+        .mobile-docs-nav-links {
+            list-style: none;
+        }
+
+        .mobile-docs-nav-links a {
+            display: block;
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .mobile-docs-nav-links a:hover,
+        .mobile-docs-nav-links a.active {
+            color: var(--text);
+        }
+
         /* Mobile */
         @media (max-width: 900px) {
             .sidebar { display: none; }
-            .content { margin-left: 0; padding: 32px 24px; }
+            .content { margin-left: 0; padding: 32px 24px; max-width: 100%; }
             .nav-links { display: none; }
+            .mobile-docs-nav { display: block; }
         }
 
         @media (max-width: 640px) {
             .content { padding: 24px 16px; }
-            .content h1 { font-size: 28px; }
-            .content > p:first-of-type { font-size: 16px; margin-bottom: 32px; }
-            .content h2 { font-size: 16px; margin: 32px 0 12px; padding-top: 20px; }
-            .content pre { padding: 16px; margin: 16px 0; }
-            .content pre code { font-size: 13px; }
-            .content ul { margin-left: 20px; }
+            .content h1 { font-size: 26px; line-height: 1.2; }
+            .content > p:first-of-type { font-size: 15px; margin-bottom: 24px; line-height: 1.6; }
+            .content h2 { font-size: 16px; margin: 28px 0 12px; padding-top: 16px; }
+            .content p { font-size: 14px; line-height: 1.7; }
+            .content pre {
+                padding: 14px;
+                margin: 16px -16px;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+            }
+            .content pre code {
+                font-size: 12px;
+                line-height: 1.5;
+                white-space: pre;
+                overflow-x: auto;
+                display: block;
+            }
+            .content code {
+                font-size: 12px;
+                padding: 2px 5px;
+            }
+            .content ul {
+                margin-left: 16px;
+                font-size: 14px;
+            }
+            .content li {
+                margin-bottom: 6px;
+            }
             .mobile-menu-btn { display: block; }
         }
 
@@ -291,6 +381,36 @@
         </aside>
 
         <main class="content">
+            <div class="mobile-docs-nav" id="mobileDocsNav">
+                <div class="mobile-docs-nav-header" onclick="document.getElementById('mobileDocsNav').classList.toggle('open')">
+                    <span>Documentation Menu</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                </div>
+                <div class="mobile-docs-nav-content">
+                    <div class="mobile-docs-nav-section">
+                        <div class="mobile-docs-nav-title">Getting Started</div>
+                        <ul class="mobile-docs-nav-links">
+                            <li><a href="/docs/" class="active">Overview</a></li>
+                        </ul>
+                    </div>
+                    <div class="mobile-docs-nav-section">
+                        <div class="mobile-docs-nav-title">Commands</div>
+                        <ul class="mobile-docs-nav-links">
+                            <li><a href="/docs/commands/pack.html">pack</a></li>
+                            <li><a href="/docs/commands/map.html">map</a></li>
+                            <li><a href="/docs/commands/scan.html">scan</a></li>
+                            <li><a href="/docs/commands/index.html">index</a></li>
+                            <li><a href="/docs/commands/diff.html">diff</a></li>
+                            <li><a href="/docs/commands/impact.html">impact</a></li>
+                            <li><a href="/docs/commands/chunk.html">chunk</a></li>
+                            <li><a href="/docs/commands/init.html">init</a></li>
+                            <li><a href="/docs/commands/info.html">info</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <h1>InfiniLoom Documentation</h1>
             <p>InfiniLoom is a high-performance repository context generator for large language models. Transform your codebase into optimized formats for Claude, GPT-4, Gemini, Llama, Mistral, DeepSeek, Qwen, and other AI models.</p>
 
