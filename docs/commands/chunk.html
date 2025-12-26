@@ -102,8 +102,40 @@
                 <p>Output directory for chunks</p>
             </div>
             <div class="option">
-                <code>--model &lt;MODEL&gt;</code>
-                <p>Target model for token counting. Supports claude, gpt4, gpt4o, gemini, llama, mistral, deepseek, qwen, cohere, grok</p>
+                <code>-m, --model &lt;MODEL&gt;</code>
+                <p>Target model for token counting (default: claude)</p>
+            </div>
+            <div class="option">
+                <code>-f, --format &lt;FORMAT&gt;</code>
+                <p>Output format: xml, markdown, json, yaml, toon, plain (default: xml)</p>
+            </div>
+            <div class="option">
+                <code>--overlap &lt;TOKENS&gt;</code>
+                <p>Token overlap between chunks (default: 0)</p>
+            </div>
+            <div class="option">
+                <code>--no-chunk-summary</code>
+                <p>Disable auto-generated summary headers</p>
+            </div>
+            <div class="option">
+                <code>--priority-first</code>
+                <p>Sort chunks by priority (core first, tests last)</p>
+            </div>
+            <div class="option">
+                <code>-i, --include &lt;PATTERN&gt;</code>
+                <p>Include only files matching glob pattern (repeatable)</p>
+            </div>
+            <div class="option">
+                <code>-e, --exclude &lt;PATTERN&gt;</code>
+                <p>Exclude files/directories matching pattern (repeatable)</p>
+            </div>
+            <div class="option">
+                <code>--include-tests</code>
+                <p>Include test files in chunks</p>
+            </div>
+            <div class="option">
+                <code>-v, --verbose</code>
+                <p>Show detailed progress</p>
             </div>
 
             <h2>Examples</h2>
@@ -121,12 +153,12 @@ infiniloom chunk --max-tokens 4000</code></pre>
 
             <h2>Strategies</h2>
             <ul>
-                <li><strong>semantic</strong> — Groups by code meaning and relationships</li>
-                <li><strong>file</strong> — One chunk per file</li>
-                <li><strong>module</strong> — Groups by module/package</li>
-                <li><strong>symbol</strong> — Groups by symbol dependencies</li>
-                <li><strong>dependency</strong> — Groups by dependency graph</li>
-                <li><strong>fixed</strong> — Fixed-size chunks</li>
+                <li><strong>semantic</strong> — Groups by character frequency similarity (default)</li>
+                <li><strong>file</strong> — One file per chunk</li>
+                <li><strong>module</strong> — Groups by directory/module</li>
+                <li><strong>symbol</strong> — Groups by key symbols (AST-based)</li>
+                <li><strong>dependency</strong> — Groups by import relationships</li>
+                <li><strong>fixed</strong> — Fixed token size chunks</li>
             </ul>
         </main>
     </div>

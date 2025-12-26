@@ -97,6 +97,26 @@
                 <code>-o, --output &lt;PATH&gt;</code>
                 <p>Output file path (default: stdout)</p>
             </div>
+            <div class="option">
+                <code>-m, --model &lt;MODEL&gt;</code>
+                <p>Target model for token counting (default: claude)</p>
+            </div>
+            <div class="option">
+                <code>-i, --include &lt;PATTERN&gt;</code>
+                <p>Include only files matching glob pattern (repeatable)</p>
+            </div>
+            <div class="option">
+                <code>-e, --exclude &lt;PATTERN&gt;</code>
+                <p>Exclude files/directories matching pattern (repeatable)</p>
+            </div>
+            <div class="option">
+                <code>--include-tests</code>
+                <p>Include test files in map</p>
+            </div>
+            <div class="option">
+                <code>-v, --verbose</code>
+                <p>Show detailed progress</p>
+            </div>
 
             <h2>Examples</h2>
             <pre><code><span class="comment"># Generate map to stdout</span>

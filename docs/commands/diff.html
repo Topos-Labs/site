@@ -102,16 +102,44 @@
                 <p>Token limit (default: 50,000)</p>
             </div>
             <div class="option">
-                <code>--format &lt;FORMAT&gt;</code>
-                <p>Output format: xml, json, markdown</p>
+                <code>-f, --format &lt;FORMAT&gt;</code>
+                <p>Output format: xml, markdown, json, yaml, toon, plain (default: xml)</p>
+            </div>
+            <div class="option">
+                <code>-o, --output &lt;PATH&gt;</code>
+                <p>Output file path (default: stdout)</p>
+            </div>
+            <div class="option">
+                <code>-m, --model &lt;MODEL&gt;</code>
+                <p>Target model for token counting (default: claude)</p>
             </div>
             <div class="option">
                 <code>--include-diff</code>
-                <p>Include actual diff content</p>
+                <p>Include actual diff content (+/- lines)</p>
             </div>
             <div class="option">
                 <code>--include-history</code>
-                <p>Include recent commit history</p>
+                <p>Include recent commit history for changed files</p>
+            </div>
+            <div class="option">
+                <code>--history-count &lt;N&gt;</code>
+                <p>Number of recent commits to include per file (default: 3)</p>
+            </div>
+            <div class="option">
+                <code>-i, --include &lt;PATTERN&gt;</code>
+                <p>Include only files matching glob pattern (repeatable)</p>
+            </div>
+            <div class="option">
+                <code>-e, --exclude &lt;PATTERN&gt;</code>
+                <p>Exclude files/directories matching pattern (repeatable)</p>
+            </div>
+            <div class="option">
+                <code>--include-tests</code>
+                <p>Include test files in context</p>
+            </div>
+            <div class="option">
+                <code>-v, --verbose</code>
+                <p>Show detailed progress</p>
             </div>
 
             <h2>Examples</h2>

@@ -93,7 +93,7 @@
             <h2>Options</h2>
             <div class="option">
                 <code>-f, --format &lt;FORMAT&gt;</code>
-                <p>Output format: xml, markdown, json, yaml, toon (default: xml)</p>
+                <p>Output format: xml, markdown, json, yaml, toon, plain (default: xml)</p>
             </div>
             <div class="option">
                 <code>-m, --model &lt;MODEL&gt;</code>
@@ -109,11 +109,39 @@
             </div>
             <div class="option">
                 <code>--compression &lt;LEVEL&gt;</code>
-                <p>Compression level: none, minimal, balanced, aggressive, extreme</p>
+                <p>Compression level: none, minimal, balanced, focused, aggressive, semantic, extreme</p>
             </div>
             <div class="option">
                 <code>--security-check</code>
                 <p>Scan for secrets and sensitive data</p>
+            </div>
+            <div class="option">
+                <code>--redact-secrets</code>
+                <p>Redact detected secrets in output</p>
+            </div>
+            <div class="option">
+                <code>--hidden</code>
+                <p>Include hidden files in output</p>
+            </div>
+            <div class="option">
+                <code>--symbols</code>
+                <p>Enable AST-based symbol extraction</p>
+            </div>
+            <div class="option">
+                <code>-i, --include &lt;PATTERN&gt;</code>
+                <p>Include only files matching glob pattern (repeatable)</p>
+            </div>
+            <div class="option">
+                <code>-e, --exclude &lt;PATTERN&gt;</code>
+                <p>Exclude files/directories matching pattern (repeatable)</p>
+            </div>
+            <div class="option">
+                <code>--include-tests</code>
+                <p>Include test files in output</p>
+            </div>
+            <div class="option">
+                <code>-v, --verbose</code>
+                <p>Show detailed progress</p>
             </div>
 
             <h2>Examples</h2>

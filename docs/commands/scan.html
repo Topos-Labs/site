@@ -109,6 +109,26 @@
                 <code>--security-check</code>
                 <p>Scan for secrets and API keys</p>
             </div>
+            <div class="option">
+                <code>--sample &lt;N&gt;</code>
+                <p>Sample N random files for estimation (useful for large repos)</p>
+            </div>
+            <div class="option">
+                <code>--sample-percent &lt;P&gt;</code>
+                <p>Sample P% of files for estimation</p>
+            </div>
+            <div class="option">
+                <code>-i, --include &lt;PATTERN&gt;</code>
+                <p>Include only files matching glob pattern (repeatable)</p>
+            </div>
+            <div class="option">
+                <code>-e, --exclude &lt;PATTERN&gt;</code>
+                <p>Exclude files/directories matching pattern (repeatable)</p>
+            </div>
+            <div class="option">
+                <code>--include-tests</code>
+                <p>Include test files in scan (normally excluded)</p>
+            </div>
 
             <h2>Examples</h2>
             <pre><code><span class="comment"># Quick repository scan</span>
