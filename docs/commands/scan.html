@@ -44,7 +44,12 @@
         .option code { font-weight: 500; color: var(--text); }
         .option p { margin: 4px 0 0 0; font-size: 14px; }
         @media (max-width: 900px) { .sidebar { display: none; } .content { margin-left: 0; padding: 32px 24px; } .nav-links { display: none; } }
-        @media (max-width: 640px) { .content { padding: 24px 16px; } .content h1 { font-size: 24px; } .content > p:first-of-type { font-size: 16px; margin-bottom: 32px; } .content pre { padding: 16px; font-size: 13px; } .content pre code { font-size: 13px; } .option code { font-size: 12px; word-break: break-word; } }
+        @media (max-width: 640px) { .content { padding: 24px 16px; } .content h1 { font-size: 24px; } .content > p:first-of-type { font-size: 16px; margin-bottom: 32px; } .content pre { padding: 16px; font-size: 13px; } .content pre code { font-size: 13px; } .option code { font-size: 12px; word-break: break-word; } .mobile-menu-btn { display: block; } }
+        .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--text); }
+        .mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--border); padding: 16px 24px; z-index: 99; }
+        .mobile-menu.active { display: block; }
+        .mobile-menu a { display: block; padding: 12px 0; color: var(--text-secondary); font-size: 16px; border-bottom: 1px solid var(--border); }
+        .mobile-menu a:last-child { border-bottom: none; }
     </style>
 </head>
 <body>
@@ -56,8 +61,19 @@
                 <li><a href="/docs/" class="active">Docs</a></li>
                 <li><a href="https://github.com/Topos-Labs" target="_blank">GitHub</a></li>
             </ul>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.mobile-menu').classList.toggle('active')" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
         </div>
     </nav>
+    <div class="mobile-menu">
+        <a href="/">Home</a>
+        <a href="/infiniloom/">InfiniLoom</a>
+        <a href="/docs/">Documentation</a>
+        <a href="https://github.com/Topos-Labs/infiniloom" target="_blank">GitHub</a>
+    </div>
     <div class="docs-layout">
         <aside class="sidebar">
             <div class="sidebar-section">
