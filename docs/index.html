@@ -7,7 +7,7 @@
     <meta name="description" content="InfiniLoom documentation - high-performance repository context generator for LLMs">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -19,7 +19,7 @@
             --text-tertiary: #555555;
         }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
@@ -52,7 +52,8 @@
             align-items: center;
             height: 100%;
         }
-        .logo { font-size: 15px; font-weight: 600; }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; }
+        .logo-topos { color: #ffffff; } .logo-labs { color: #3DBAAC; font-weight: 600; } .logo-icon { width: 28px; height: 36px; }
         .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a { font-size: 14px; color: var(--text-secondary); transition: color 0.2s; }
         .nav-links a:hover, .nav-links a.active { color: var(--text); }
@@ -336,7 +337,10 @@
 <body>
     <nav>
         <div class="nav-content">
-            <a href="/" class="logo">Topos Labs</a>
+            <a href="/" class="logo">
+                <img src="/assets/logo-icon.svg" alt="Topos Labs" class="logo-icon">
+                <span><span class="logo-topos">Topos</span> <span class="logo-labs">Labs</span></span>
+            </a>
             <ul class="nav-links">
                 <li><a href="/infiniloom/">InfiniLoom</a></li>
                 <li><a href="/docs/" class="active">Docs</a></li>

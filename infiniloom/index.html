@@ -7,7 +7,7 @@
     <meta name="description" content="High-performance repository context generator for LLMs">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -25,7 +25,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
@@ -68,9 +68,17 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-size: 15px;
             font-weight: 600;
             letter-spacing: -0.02em;
+        }
+
+        .logo-topos { color: #ffffff; } .logo-labs { color: #3DBAAC; font-weight: 600; } .logo-icon {
+            width: 28px;
+            height: 36px;
         }
 
         .nav-links {
@@ -577,7 +585,10 @@
 <body>
     <nav>
         <div class="container nav-content">
-            <a href="/" class="logo">Topos Labs</a>
+            <a href="/" class="logo">
+                <img src="/assets/logo-icon.svg" alt="Topos Labs" class="logo-icon">
+                <span><span class="logo-topos">Topos</span> <span class="logo-labs">Labs</span></span>
+            </a>
             <ul class="nav-links">
                 <li><a href="/infiniloom/" class="active">InfiniLoom</a></li>
                 <li><a href="/docs/">Docs</a></li>

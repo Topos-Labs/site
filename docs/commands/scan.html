@@ -6,16 +6,17 @@
     <title>scan - InfiniLoom</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --bg: #0a0a0a; --surface: #141414; --border: rgba(255,255,255,0.1); --text: #ffffff; --text-secondary: #888888; --text-tertiary: #555555; }
-        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Nunito', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
         a { color: inherit; text-decoration: none; }
         code, pre { font-family: 'JetBrains Mono', monospace; font-size: 14px; }
         nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); height: 64px; }
         .nav-content { max-width: 1400px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 100%; }
-        .logo { font-size: 15px; font-weight: 600; }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; }
+        .logo-topos { color: #ffffff; } .logo-labs { color: #3DBAAC; font-weight: 600; } .logo-icon { width: 28px; height: 36px; }
         .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a { font-size: 14px; color: var(--text-secondary); transition: color 0.2s; }
         .nav-links a:hover, .nav-links a.active { color: var(--text); }
@@ -68,7 +69,10 @@
 <body>
     <nav>
         <div class="nav-content">
-            <a href="/" class="logo">Topos Labs</a>
+            <a href="/" class="logo">
+                <img src="/assets/logo-icon.svg" alt="Topos Labs" class="logo-icon">
+                <span><span class="logo-topos">Topos</span> <span class="logo-labs">Labs</span></span>
+            </a>
             <ul class="nav-links">
                 <li><a href="/infiniloom/">InfiniLoom</a></li>
                 <li><a href="/docs/" class="active">Docs</a></li>

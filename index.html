@@ -7,7 +7,7 @@
     <meta name="description" content="Building developer tools for the AI era">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -29,8 +29,9 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(145deg, #0d1117 0%, #0a0a0a 50%, #0a0f14 100%);
+            background-attachment: fixed;
             color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
@@ -67,9 +68,26 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-size: 15px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: -0.02em;
+        }
+
+        .logo-topos {
+            color: #ffffff;
+        }
+
+        .logo-labs {
+            color: #3DBAAC;
+            font-weight: 600;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 36px;
         }
 
         .nav-links {
@@ -88,12 +106,59 @@
             color: var(--text);
         }
 
+        /* Background decoration */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .bg-glow::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(ellipse, rgba(61, 186, 172, 0.15) 0%, transparent 70%);
+            filter: blur(60px);
+        }
+
+        .bg-glow::after {
+            content: '';
+            position: absolute;
+            bottom: 20%;
+            right: -10%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(ellipse, rgba(27, 36, 74, 0.4) 0%, transparent 70%);
+            filter: blur(80px);
+        }
+
         /* Hero */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             padding: 120px 0 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(61, 186, 172, 0.08) 0%, transparent 60%);
+            pointer-events: none;
         }
 
         .hero-content {
@@ -102,10 +167,14 @@
 
         .hero h1 {
             font-size: 48px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: -0.03em;
             line-height: 1.1;
             margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 50%, #3DBAAC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
@@ -364,24 +433,20 @@
             animation: fadeIn 0.8s ease-out 0.3s both;
         }
 
-        /* Subtle grid background */
-        .hero::before {
-            content: '';
+        /* Neural network canvas */
+        #neural-canvas {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black, transparent);
+            width: 100%;
+            height: 100%;
             pointer-events: none;
+            opacity: 0.6;
         }
 
         .hero {
             position: relative;
+            overflow: hidden;
         }
 
         /* Mobile Menu */
@@ -453,9 +518,13 @@
     </style>
 </head>
 <body>
+    <div class="bg-glow"></div>
     <nav>
         <div class="container nav-content">
-            <a href="/" class="logo">Topos Labs</a>
+            <a href="/" class="logo">
+                <img src="/assets/logo-icon.svg" alt="Topos Labs" class="logo-icon">
+                <span><span class="logo-topos">Topos</span> <span class="logo-labs">Labs</span></span>
+            </a>
             <ul class="nav-links">
                 <li><a href="/infiniloom/">InfiniLoom</a></li>
                 <li><a href="/docs/">Docs</a></li>
@@ -476,6 +545,7 @@
 
     <main>
         <section class="hero">
+            <canvas id="neural-canvas"></canvas>
             <div class="container">
                 <div class="hero-content">
                     <h1>Building developer tools for the AI era</h1>
@@ -534,5 +604,454 @@
             </div>
         </div>
     </footer>
+
+    <script>
+    // Advanced Neural Topology Animation
+    (function() {
+        const canvas = document.getElementById('neural-canvas');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let nodes = [];
+        let hubNodes = [];
+        let synapses = [];
+        let geometryShapes = [];
+        let mouse = { x: null, y: null, radius: 150 };
+        let animationId;
+        let time = 0;
+
+        // Configuration
+        const config = {
+            nodeCount: 80,
+            hubCount: 5,
+            connectionDistance: 180,
+            hubConnectionDistance: 300,
+            mouseInfluence: 200,
+            colors: {
+                teal: [77, 212, 198],
+                tealBright: [93, 236, 216],
+                cyan: [64, 224, 208],
+                navy: [45, 73, 104],
+                purple: [100, 80, 180],
+                white: [255, 255, 255]
+            }
+        };
+
+        // Utility functions
+        const lerp = (a, b, t) => a + (b - a) * t;
+        const dist = (x1, y1, x2, y2) => Math.sqrt((x2-x1)**2 + (y2-y1)**2);
+        const rgba = (color, alpha) => `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${alpha})`;
+
+        // Base Node class
+        class Node {
+            constructor(isHub = false) {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.baseSpeed = isHub ? 0.15 : 0.25 + Math.random() * 0.2;
+                this.vx = (Math.random() - 0.5) * this.baseSpeed;
+                this.vy = (Math.random() - 0.5) * this.baseSpeed;
+                this.radius = isHub ? 3 + Math.random() * 2 : 1 + Math.random() * 1.5;
+                this.isHub = isHub;
+                this.pulsePhase = Math.random() * Math.PI * 2;
+                this.pulseSpeed = 0.015 + Math.random() * 0.01;
+                this.layer = isHub ? 2 : Math.random() < 0.3 ? 0 : 1; // Depth layers
+                this.energy = 0;
+                this.maxEnergy = 1;
+                this.color = isHub ? config.colors.tealBright : config.colors.teal;
+            }
+
+            update() {
+                this.pulsePhase += this.pulseSpeed;
+
+                // Mouse interaction
+                if (mouse.x !== null) {
+                    const d = dist(this.x, this.y, mouse.x, mouse.y);
+                    if (d < config.mouseInfluence) {
+                        const force = (1 - d / config.mouseInfluence) * 0.5;
+                        const angle = Math.atan2(this.y - mouse.y, this.x - mouse.x);
+                        this.vx += Math.cos(angle) * force;
+                        this.vy += Math.sin(angle) * force;
+                        this.energy = Math.min(this.maxEnergy, this.energy + 0.1);
+                    }
+                }
+
+                // Apply velocity with damping
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx *= 0.99;
+                this.vy *= 0.99;
+
+                // Add subtle drift
+                this.vx += (Math.random() - 0.5) * 0.02;
+                this.vy += (Math.random() - 0.5) * 0.02;
+
+                // Clamp velocity
+                const maxSpeed = this.baseSpeed * 3;
+                const speed = Math.sqrt(this.vx**2 + this.vy**2);
+                if (speed > maxSpeed) {
+                    this.vx = (this.vx / speed) * maxSpeed;
+                    this.vy = (this.vy / speed) * maxSpeed;
+                }
+
+                // Soft boundary bounce
+                const margin = 50;
+                if (this.x < margin) this.vx += 0.05;
+                if (this.x > width - margin) this.vx -= 0.05;
+                if (this.y < margin) this.vy += 0.05;
+                if (this.y > height - margin) this.vy -= 0.05;
+
+                // Keep in bounds
+                this.x = Math.max(0, Math.min(width, this.x));
+                this.y = Math.max(0, Math.min(height, this.y));
+
+                // Decay energy
+                this.energy *= 0.95;
+            }
+
+            draw() {
+                const pulse = Math.sin(this.pulsePhase) * 0.5 + 0.5;
+                const energyBoost = 1 + this.energy * 2;
+                const layerAlpha = 0.4 + this.layer * 0.3;
+
+                // Outer glow
+                const glowRadius = (this.radius + pulse * 6) * energyBoost;
+                const gradient = ctx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, glowRadius
+                );
+                gradient.addColorStop(0, rgba(this.color, 0.8 * layerAlpha));
+                gradient.addColorStop(0.5, rgba(this.color, 0.2 * layerAlpha));
+                gradient.addColorStop(1, 'transparent');
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, glowRadius, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                // Core with ring
+                if (this.isHub) {
+                    // Hub ring
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius * 2 + pulse * 3, 0, Math.PI * 2);
+                    ctx.strokeStyle = rgba(this.color, 0.3 * layerAlpha);
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+
+                // Core
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * energyBoost, 0, Math.PI * 2);
+                ctx.fillStyle = rgba(this.color, layerAlpha);
+                ctx.fill();
+            }
+        }
+
+        // Synapse pulse traveling along connection
+        class Synapse {
+            constructor(from, to) {
+                this.from = from;
+                this.to = to;
+                this.progress = 0;
+                this.speed = 0.01 + Math.random() * 0.02;
+                this.alive = true;
+                this.width = 1 + Math.random();
+                this.branches = [];
+            }
+
+            update(allNodes) {
+                this.progress += this.speed;
+                if (this.progress >= 1) {
+                    this.alive = false;
+                    // Chance to trigger cascade from destination
+                    if (Math.random() < 0.3 && this.to.isHub) {
+                        this.to.energy = Math.min(1, this.to.energy + 0.5);
+                    }
+                }
+
+                // Branch to nearby nodes
+                if (this.progress > 0.3 && this.progress < 0.7 && Math.random() < 0.01) {
+                    const currentX = lerp(this.from.x, this.to.x, this.progress);
+                    const currentY = lerp(this.from.y, this.to.y, this.progress);
+
+                    for (const node of allNodes) {
+                        if (node !== this.from && node !== this.to) {
+                            const d = dist(currentX, currentY, node.x, node.y);
+                            if (d < 80 && Math.random() < 0.3) {
+                                this.branches.push({
+                                    x: currentX,
+                                    y: currentY,
+                                    target: node,
+                                    progress: 0
+                                });
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                // Update branches
+                this.branches.forEach(b => b.progress += this.speed * 1.5);
+                this.branches = this.branches.filter(b => b.progress < 1);
+            }
+
+            draw() {
+                const x = lerp(this.from.x, this.to.x, this.progress);
+                const y = lerp(this.from.y, this.to.y, this.progress);
+
+                // Trail
+                const trailLength = 0.15;
+                const trailStart = Math.max(0, this.progress - trailLength);
+                const x1 = lerp(this.from.x, this.to.x, trailStart);
+                const y1 = lerp(this.from.y, this.to.y, trailStart);
+
+                const gradient = ctx.createLinearGradient(x1, y1, x, y);
+                gradient.addColorStop(0, 'transparent');
+                gradient.addColorStop(1, rgba(config.colors.tealBright, 0.8));
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = this.width;
+                ctx.stroke();
+
+                // Head glow
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = rgba(config.colors.white, 0.9);
+                ctx.fill();
+
+                // Draw branches
+                this.branches.forEach(b => {
+                    const bx = lerp(b.x, b.target.x, b.progress);
+                    const by = lerp(b.y, b.target.y, b.progress);
+
+                    ctx.beginPath();
+                    ctx.moveTo(b.x, b.y);
+                    ctx.lineTo(bx, by);
+                    ctx.strokeStyle = rgba(config.colors.cyan, 0.4 * (1 - b.progress));
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.arc(bx, by, 1.5, 0, Math.PI * 2);
+                    ctx.fillStyle = rgba(config.colors.cyan, 0.6);
+                    ctx.fill();
+                });
+            }
+        }
+
+        // Geometric shape for topology visualization
+        class GeometryShape {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.002;
+                this.size = 30 + Math.random() * 70;
+                this.sides = Math.floor(Math.random() * 4) + 3; // 3-6 sides
+                this.alpha = 0.02 + Math.random() * 0.03;
+                this.drift = { x: (Math.random() - 0.5) * 0.1, y: (Math.random() - 0.5) * 0.1 };
+            }
+
+            update() {
+                this.rotation += this.rotationSpeed;
+                this.x += this.drift.x;
+                this.y += this.drift.y;
+
+                // Wrap around
+                if (this.x < -this.size) this.x = width + this.size;
+                if (this.x > width + this.size) this.x = -this.size;
+                if (this.y < -this.size) this.y = height + this.size;
+                if (this.y > height + this.size) this.y = -this.size;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+
+                ctx.beginPath();
+                for (let i = 0; i < this.sides; i++) {
+                    const angle = (i / this.sides) * Math.PI * 2;
+                    const x = Math.cos(angle) * this.size;
+                    const y = Math.sin(angle) * this.size;
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+
+                ctx.strokeStyle = rgba(config.colors.navy, this.alpha);
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Inner shape
+                ctx.beginPath();
+                for (let i = 0; i < this.sides; i++) {
+                    const angle = (i / this.sides) * Math.PI * 2 + Math.PI / this.sides;
+                    const x = Math.cos(angle) * this.size * 0.5;
+                    const y = Math.sin(angle) * this.size * 0.5;
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = rgba(config.colors.teal, this.alpha * 0.5);
+                ctx.stroke();
+
+                ctx.restore();
+            }
+        }
+
+        // Draw connections between nodes
+        function drawConnections() {
+            const allNodes = [...nodes, ...hubNodes];
+
+            for (let i = 0; i < allNodes.length; i++) {
+                for (let j = i + 1; j < allNodes.length; j++) {
+                    const n1 = allNodes[i];
+                    const n2 = allNodes[j];
+                    const d = dist(n1.x, n1.y, n2.x, n2.y);
+                    const maxDist = (n1.isHub || n2.isHub) ? config.hubConnectionDistance : config.connectionDistance;
+
+                    if (d < maxDist) {
+                        const opacity = (1 - d / maxDist) * 0.15;
+                        const avgLayer = (n1.layer + n2.layer) / 2;
+
+                        // Draw curved connection
+                        const midX = (n1.x + n2.x) / 2;
+                        const midY = (n1.y + n2.y) / 2;
+                        const offset = Math.sin(time * 0.5 + i + j) * 10;
+
+                        ctx.beginPath();
+                        ctx.moveTo(n1.x, n1.y);
+                        ctx.quadraticCurveTo(midX + offset, midY + offset, n2.x, n2.y);
+
+                        const color = n1.isHub || n2.isHub ? config.colors.tealBright : config.colors.teal;
+                        ctx.strokeStyle = rgba(color, opacity * (0.5 + avgLayer * 0.25));
+                        ctx.lineWidth = n1.isHub && n2.isHub ? 1.5 : 0.5;
+                        ctx.stroke();
+
+                        // Randomly spawn synapses
+                        if (Math.random() < 0.0008 && synapses.length < 20) {
+                            synapses.push(new Synapse(n1, n2));
+                        }
+                    }
+                }
+            }
+        }
+
+        // Draw hexagonal grid overlay
+        function drawHexGrid() {
+            const hexSize = 60;
+            const hexHeight = hexSize * Math.sqrt(3);
+
+            ctx.save();
+            ctx.globalAlpha = 0.02;
+
+            for (let row = -1; row < height / hexHeight + 1; row++) {
+                for (let col = -1; col < width / (hexSize * 1.5) + 1; col++) {
+                    const x = col * hexSize * 1.5;
+                    const y = row * hexHeight + (col % 2) * hexHeight / 2;
+
+                    const wobble = Math.sin(time * 0.3 + col * 0.5 + row * 0.3) * 3;
+
+                    ctx.beginPath();
+                    for (let i = 0; i < 6; i++) {
+                        const angle = (i / 6) * Math.PI * 2 - Math.PI / 6;
+                        const hx = x + Math.cos(angle) * (hexSize * 0.5 + wobble);
+                        const hy = y + Math.sin(angle) * (hexSize * 0.5 + wobble);
+                        if (i === 0) ctx.moveTo(hx, hy);
+                        else ctx.lineTo(hx, hy);
+                    }
+                    ctx.closePath();
+                    ctx.strokeStyle = rgba(config.colors.teal, 0.5);
+                    ctx.stroke();
+                }
+            }
+
+            ctx.restore();
+        }
+
+        // Initialize
+        function init() {
+            resize();
+            nodes = [];
+            hubNodes = [];
+            geometryShapes = [];
+
+            for (let i = 0; i < config.nodeCount; i++) {
+                nodes.push(new Node(false));
+            }
+            for (let i = 0; i < config.hubCount; i++) {
+                hubNodes.push(new Node(true));
+            }
+            for (let i = 0; i < 8; i++) {
+                geometryShapes.push(new GeometryShape());
+            }
+        }
+
+        function resize() {
+            const hero = canvas.parentElement;
+            width = hero.offsetWidth;
+            height = hero.offsetHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        // Animation loop
+        function animate() {
+            time += 0.016;
+            ctx.clearRect(0, 0, width, height);
+
+            // Background layers
+            drawHexGrid();
+            geometryShapes.forEach(s => { s.update(); s.draw(); });
+
+            // Connections
+            drawConnections();
+
+            // Synapses
+            synapses.forEach(s => { s.update([...nodes, ...hubNodes]); s.draw(); });
+            synapses = synapses.filter(s => s.alive);
+
+            // Nodes (draw in layer order for depth)
+            const allNodes = [...nodes, ...hubNodes].sort((a, b) => a.layer - b.layer);
+            allNodes.forEach(n => { n.update(); n.draw(); });
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        // Mouse tracking
+        canvas.style.pointerEvents = 'auto';
+        const hero = canvas.parentElement;
+        hero.addEventListener('mousemove', (e) => {
+            const rect = hero.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+        hero.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Start
+        init();
+        animate();
+
+        window.addEventListener('resize', () => {
+            resize();
+            nodes.forEach(n => {
+                n.x = Math.min(n.x, width);
+                n.y = Math.min(n.y, height);
+            });
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) cancelAnimationFrame(animationId);
+            else animate();
+        });
+    })();
+    </script>
 </body>
 </html>
