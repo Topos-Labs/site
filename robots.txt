@@ -1,0 +1,7 @@
+# robots.txt for toposlabs.ai
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://toposlabs.ai/sitemap.xml
