@@ -1,0 +1,49 @@
+{
+  "name": "Topos Labs",
+  "short_name": "Topos Labs",
+
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "any",
+  "categories": ["development", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/assets/logo-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+
+
+      "description": "Repository context generator for LLMs",
+
+      "icons": [
+        {
+          "src": "/assets/logo-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "short_name": "Docs",
+
+      "url": "/docs/",
+      "icons": [
+        {
+          "src": "/assets/logo-icon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

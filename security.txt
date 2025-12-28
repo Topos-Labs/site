@@ -1,0 +1,15 @@
+# Security Policy for Topos Labs
+# RFC 9116: https://www.rfc-editor.org/rfc/rfc9116.html
+# This file redirects to /.well-known/security.txt
+
+Contact: mailto:security@toposlabs.ai
+
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://toposlabs.ai/.well-known/security.txt
+
+# Security Policy
+Policy: https://toposlabs.ai/security-policy
+
+# Acknowledgments
+Acknowledgments: https://toposlabs.ai/security-acknowledgments

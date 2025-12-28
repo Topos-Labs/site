@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap - Topos Labs</title>
+
+    <link rel="canonical" href="https://toposlabs.ai/sitemap.html">
+    <link rel="stylesheet" href="/assets/fonts.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: rgba(255,255,255,0.1);
+            --text: #ffffff;
+            --text-secondary: #888888;
+            --text-tertiary: #555555;
+        }
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 120px 24px 80px; }
+        h1 { font-size: 36px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
+        p { color: var(--text-secondary); margin-bottom: 48px; }
+        h2 { font-size: 20px; font-weight: 600; margin: 48px 0 16px; padding-top: 24px; border-top: 1px solid var(--border); }
+        h2:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+        ul { list-style: none; margin-bottom: 24px; }
+        li { margin-bottom: 12px; }
+        a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--text); }
+        .url { font-size: 13px; color: var(--text-tertiary); margin-left: 8px; }
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(10,10,10,0.8); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-content {
+            max-width: 1100px; margin: 0 auto; padding: 0 24px;
+            display: flex; justify-content: space-between; align-items: center; height: 64px;
+        }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; }
+        .logo-topos { color: #ffffff; }
+        .logo-labs { color: #3DBAAC; font-weight: 600; }
+        .logo-icon { width: 28px; height: 36px; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-size: 14px; color: var(--text-secondary); transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+        footer { padding: 48px 0; border-top: 1px solid var(--border); margin-top: 80px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; }
+        .footer-text { font-size: 13px; color: var(--text-tertiary); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { font-size: 13px; color: var(--text-tertiary); transition: color 0.2s; }
+        .footer-links a:hover { color: var(--text); }
+        @media (max-width: 640px) {
+            h1 { font-size: 28px; }
+            .nav-links { display: none; }
+            .footer-content { flex-direction: column; gap: 24px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-content">
+            <a href="/" class="logo">
+                <img src="/assets/logo-icon.svg" alt="Topos Labs" class="logo-icon" width="28" height="36">
+                <span><span class="logo-topos">Topos</span> <span class="logo-labs">Labs</span></span>
+            </a>
+            <ul class="nav-links">
+
+                <li><a href="/docs/">Docs</a></li>
+                <li><a href="https://github.com/Topos-Labs" target="_blank" rel="noopener">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Sitemap</h1>
+        <p>Complete navigation for all pages on toposlabs.ai</p>
+
+        <section>
+            <h2>Main Pages</h2>
+            <ul>
+                <li><a href="/">Home</a> <span class="url">https://toposlabs.ai/</span></li>
+
+                <li><a href="/docs/">Documentation</a> <span class="url">https://toposlabs.ai/docs/</span></li>
+            </ul>
+        </section>
+
+        <section>
+
+            <ul>
+                <li><a href="/docs/commands/pack.html">pack</a> - Package your entire codebase</li>
+                <li><a href="/docs/commands/map.html">map</a> - Generate dependency maps</li>
+                <li><a href="/docs/commands/scan.html">scan</a> - Scan repository for supported files</li>
+                <li><a href="/docs/commands/index.html">index</a> - Build searchable codebase index</li>
+                <li><a href="/docs/commands/diff.html">diff</a> - Compare versions and changes</li>
+                <li><a href="/docs/commands/impact.html">impact</a> - Analyze change impact</li>
+                <li><a href="/docs/commands/chunk.html">chunk</a> - Split large files intelligently</li>
+
+                <li><a href="/docs/commands/info.html">info</a> - Display repository information</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Resources</h2>
+            <ul>
+                <li><a href="https://github.com/Topos-Labs" target="_blank" rel="noopener">GitHub Organization</a></li>
+
+                <li><a href="/sitemap.xml">XML Sitemap</a> <span class="url">For search engines</span></li>
+                <li><a href="/robots.txt">Robots.txt</a> <span class="url">Crawler directives</span></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-text">© 2025 Topos Labs</div>
+            <div class="footer-links">
+                <a href="https://github.com/Topos-Labs" target="_blank" rel="noopener">GitHub</a>
+                <a href="/docs/">Documentation</a>
+                <a href="/sitemap.html">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
