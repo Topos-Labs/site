@@ -661,6 +661,59 @@
             top: 0;
         }
 
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 90;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            background: rgba(61, 186, 172, 0.1);
+            border-color: rgba(61, 186, 172, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(61, 186, 172, 0.2);
+        }
+
+        .scroll-to-top svg {
+            width: 20px;
+            height: 20px;
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+        }
+
+        .scroll-to-top:hover svg {
+            color: #3DBAAC;
+        }
+
+        @media (max-width: 640px) {
+            .scroll-to-top {
+                bottom: 24px;
+                right: 24px;
+                width: 44px;
+                height: 44px;
+            }
+        }
+
         /* Enhanced focus indicators (WCAG 2.1 Level AA) */
         a:focus-visible,
         button:focus-visible,
@@ -792,6 +845,12 @@
         </div>
     </footer>
 
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
     <script>
     // Mobile menu toggle
     document.addEventListener('DOMContentLoaded', function() {
@@ -801,6 +860,25 @@
             menuBtn.addEventListener('click', function() {
                 const isExpanded = mobileMenu.classList.toggle('active');
                 menuBtn.setAttribute('aria-expanded', isExpanded);
+            });
+        }
+
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        if (scrollToTopBtn) {
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
         }
     });
