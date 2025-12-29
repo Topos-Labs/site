@@ -898,13 +898,18 @@
         let animationId;
         let time = 0;
 
-        // Configuration
+        // Configuration - optimize for mobile
+        const isMobile = window.innerWidth < 768;
+        const isLowPower = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         const config = {
-            nodeCount: 80,
-            hubCount: 5,
-            connectionDistance: 180,
-            hubConnectionDistance: 300,
-            mouseInfluence: 200,
+            nodeCount: isMobile ? 40 : 80,
+            hubCount: isMobile ? 3 : 5,
+            connectionDistance: isMobile ? 120 : 180,
+            hubConnectionDistance: isMobile ? 200 : 300,
+            mouseInfluence: isMobile ? 0 : 200,
+            geometryCount: isMobile ? 3 : 8,
+            enableHexGrid: !isMobile,
             colors: {
                 teal: [77, 212, 198],
                 tealBright: [93, 236, 216],
@@ -1263,7 +1268,7 @@
             for (let i = 0; i < config.hubCount; i++) {
                 hubNodes.push(new Node(true));
             }
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0; i < config.geometryCount; i++) {
                 geometryShapes.push(new GeometryShape());
             }
         }
@@ -1282,8 +1287,12 @@
             ctx.clearRect(0, 0, width, height);
 
             // Background layers
-            drawHexGrid();
-            geometryShapes.forEach(s => { s.update(); s.draw(); });
+            if (config.enableHexGrid) {
+                drawHexGrid();
+            }
+            if (!isMobile) {
+                geometryShapes.forEach(s => { s.update(); s.draw(); });
+            }
 
             // Connections
             drawConnections();
@@ -1299,18 +1308,20 @@
             animationId = requestAnimationFrame(animate);
         }
 
-        // Mouse tracking
-        canvas.style.pointerEvents = 'auto';
-        const hero = canvas.parentElement;
-        hero.addEventListener('mousemove', (e) => {
-            const rect = hero.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left;
-            mouse.y = e.clientY - rect.top;
-        });
-        hero.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
+        // Mouse tracking - disable on mobile
+        if (!isMobile) {
+            canvas.style.pointerEvents = 'auto';
+            const hero = canvas.parentElement;
+            hero.addEventListener('mousemove', (e) => {
+                const rect = hero.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+            hero.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+        }
 
         // Start
         init();
@@ -1335,6 +1346,25 @@
             if (document.hidden) cancelAnimationFrame(animationId);
             else animate();
         });
+
+        // Performance optimization: reduce frame rate on low-power devices
+        if (isLowPower) {
+            const originalAnimate = animate;
+            let lastTime = 0;
+            const targetFPS = 30;
+            const frameInterval = 1000 / targetFPS;
+
+            animate = function() {
+                animationId = requestAnimationFrame(animate);
+                const now = Date.now();
+                const elapsed = now - lastTime;
+
+                if (elapsed > frameInterval) {
+                    lastTime = now - (elapsed % frameInterval);
+                    originalAnimate();
+                }
+            };
+        }
     })();
     </script>
 
