@@ -624,19 +624,19 @@
             <ul class="nav-links">
 
                 <li><a href="/docs/">Docs</a></li>
-                <li><a href="https://github.com/Topos-Labs" target="_blank">GitHub</a></li>
+                <li><a href="https://github.com/Topos-Labs" target="_blank" rel="noopener" aria-label="GitHub (opens in new tab)">GitHub</a></li>
             </ul>
-            <button class="mobile-menu-btn" aria-label="Menu">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <button class="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M3 12h18M3 6h18M3 18h18"/>
                 </svg>
             </button>
         </div>
     </nav>
-    <div class="mobile-menu">
+    <div id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
 
         <a href="/docs/">Documentation</a>
-        <a href="https://github.com/Topos-Labs" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/Topos-Labs" target="_blank" rel="noopener" aria-label="GitHub (opens in new tab)">GitHub</a>
     </div>
 
     <main id="main-content" role="main">
@@ -648,7 +648,7 @@
                     <p>We create high-performance tools that help developers work more effectively with large language models.</p>
                     <div class="hero-links">
 
-                        <a href="https://github.com/Topos-Labs" target="_blank">GitHub</a>
+                        <a href="https://github.com/Topos-Labs" target="_blank" rel="noopener" aria-label="GitHub (opens in new tab)">GitHub</a>
                     </div>
                 </div>
             </div>
@@ -695,7 +695,7 @@
         <div class="container footer-content">
             <div class="footer-text">© 2025 Topos Labs</div>
             <div class="footer-links">
-                <a href="https://github.com/Topos-Labs" target="_blank">GitHub</a>
+                <a href="https://github.com/Topos-Labs" target="_blank" rel="noopener" aria-label="GitHub (opens in new tab)">GitHub</a>
                 <a href="/docs/">Documentation</a>
             </div>
         </div>
@@ -708,7 +708,8 @@
         const mobileMenu = document.querySelector('.mobile-menu');
         if (menuBtn && mobileMenu) {
             menuBtn.addEventListener('click', function() {
-                mobileMenu.classList.toggle('active');
+                const isExpanded = mobileMenu.classList.toggle('active');
+                menuBtn.setAttribute('aria-expanded', isExpanded);
             });
         }
     });
