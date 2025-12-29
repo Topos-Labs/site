@@ -753,6 +753,158 @@
             }
         }
 
+        /* Command Palette */
+        .command-palette-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .command-palette-backdrop.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 15vh;
+        }
+
+        .command-palette {
+            width: 90%;
+            max-width: 600px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.96) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .command-palette-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        .command-palette-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--text-tertiary);
+        }
+
+        .command-palette-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: var(--text);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .command-palette-input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .command-palette-shortcut {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .command-palette-key {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-family: 'Nunito', monospace;
+        }
+
+        .command-palette-results {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .command-palette-empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 14px;
+        }
+
+        .command-palette-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .command-palette-item:hover,
+        .command-palette-item.selected {
+            background: rgba(61, 186, 172, 0.1);
+        }
+
+        .command-palette-item-icon {
+            width: 20px;
+            height: 20px;
+            color: #3DBAAC;
+        }
+
+        .command-palette-item-content {
+            flex: 1;
+        }
+
+        .command-palette-item-title {
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        .command-palette-item-subtitle {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .command-palette-footer {
+            padding: 12px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .command-palette-hint {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         /* Enhanced focus indicators (WCAG 2.1 Level AA) */
         a:focus-visible,
         button:focus-visible,
@@ -819,6 +971,46 @@
 
         <a href="/docs/">Documentation</a>
         <a href="https://github.com/Topos-Labs" target="_blank" rel="noopener" aria-label="GitHub (opens in new tab)">GitHub</a>
+    </div>
+
+    <!-- Command Palette -->
+    <div class="command-palette-backdrop" id="commandPalette" role="dialog" aria-modal="true" aria-label="Quick navigation">
+        <div class="command-palette">
+            <div class="command-palette-header">
+                <svg class="command-palette-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input
+                    type="text"
+                    class="command-palette-input"
+                    id="commandPaletteInput"
+                    placeholder="Search documentation..."
+                    autocomplete="off"
+                    aria-label="Search documentation"
+                />
+                <div class="command-palette-shortcut">
+                    <span class="command-palette-key">ESC</span>
+                </div>
+            </div>
+            <div class="command-palette-results" id="commandPaletteResults">
+                <div class="command-palette-empty">Type to search documentation...</div>
+            </div>
+            <div class="command-palette-footer">
+                <div class="command-palette-hint">
+                    <span class="command-palette-key">↑</span>
+                    <span class="command-palette-key">↓</span>
+                    <span>Navigate</span>
+                </div>
+                <div class="command-palette-hint">
+                    <span class="command-palette-key">↵</span>
+                    <span>Select</span>
+                </div>
+                <div class="command-palette-hint">
+                    <span class="command-palette-key">ESC</span>
+                    <span>Close</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <main id="main-content" role="main">
@@ -901,6 +1093,182 @@
                 menuBtn.setAttribute('aria-expanded', isExpanded);
             });
         }
+
+        // Command Palette
+        const commandPalette = document.getElementById('commandPalette');
+        const commandPaletteInput = document.getElementById('commandPaletteInput');
+        const commandPaletteResults = document.getElementById('commandPaletteResults');
+        let selectedIndex = 0;
+        let currentResults = [];
+
+        // Navigation data
+        const commands = [
+            { title: 'Home', subtitle: 'Main landing page', url: '/', icon: 'home' },
+
+            { title: 'Documentation', subtitle: 'Getting started guide', url: '/docs/', icon: 'docs' },
+            { title: 'pack command', subtitle: 'Pack repository into LLM context', url: '/docs/commands/pack.html', icon: 'command' },
+            { title: 'map command', subtitle: 'Generate repository map', url: '/docs/commands/map.html', icon: 'command' },
+            { title: 'scan command', subtitle: 'Analyze repository statistics', url: '/docs/commands/scan.html', icon: 'command' },
+            { title: 'index command', subtitle: 'Build symbol index', url: '/docs/commands/index.html', icon: 'command' },
+            { title: 'diff command', subtitle: 'Context for code changes', url: '/docs/commands/diff.html', icon: 'command' },
+            { title: 'impact command', subtitle: 'Analyze change impact', url: '/docs/commands/impact.html', icon: 'command' },
+            { title: 'chunk command', subtitle: 'Split into context chunks', url: '/docs/commands/chunk.html', icon: 'command' },
+            { title: 'init command', subtitle: 'Create configuration file', url: '/docs/commands/init.html', icon: 'command' },
+            { title: 'info command', subtitle: 'Display system information', url: '/docs/commands/info.html', icon: 'command' },
+            { title: 'GitHub', subtitle: 'View source code', url: 'https://github.com/Topos-Labs', icon: 'github' }
+        ];
+
+        // Simple fuzzy search
+        function fuzzySearch(query, text) {
+            query = query.toLowerCase();
+            text = text.toLowerCase();
+            let queryIndex = 0;
+            let textIndex = 0;
+            let score = 0;
+
+            while (queryIndex < query.length && textIndex < text.length) {
+                if (query[queryIndex] === text[textIndex]) {
+                    score++;
+                    queryIndex++;
+                }
+                textIndex++;
+            }
+
+            return queryIndex === query.length ? score / query.length : 0;
+        }
+
+        function searchCommands(query) {
+            if (!query.trim()) return commands;
+
+            return commands
+                .map(cmd => ({
+                    ...cmd,
+                    score: Math.max(
+                        fuzzySearch(query, cmd.title),
+                        fuzzySearch(query, cmd.subtitle)
+                    )
+                }))
+                .filter(cmd => cmd.score > 0.5)
+                .sort((a, b) => b.score - a.score);
+        }
+
+        function getIconSvg(type) {
+            const icons = {
+                home: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>',
+                product: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>',
+                docs: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>',
+                command: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>',
+                github: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>'
+            };
+            return icons[type] || icons.command;
+        }
+
+        function renderResults(results) {
+            currentResults = results;
+            selectedIndex = 0;
+
+            if (results.length === 0) {
+                commandPaletteResults.innerHTML = '<div class="command-palette-empty">No results found</div>';
+                return;
+            }
+
+            commandPaletteResults.innerHTML = results.map((cmd, index) => `
+                <div class="command-palette-item ${index === 0 ? 'selected' : ''}" data-index="${index}">
+                    <svg class="command-palette-item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        ${getIconSvg(cmd.icon)}
+                    </svg>
+                    <div class="command-palette-item-content">
+                        <div class="command-palette-item-title">${cmd.title}</div>
+                        <div class="command-palette-item-subtitle">${cmd.subtitle}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            document.querySelectorAll('.command-palette-item').forEach((item, index) => {
+                item.addEventListener('click', () => navigateToResult(index));
+            });
+        }
+
+        function updateSelection() {
+            document.querySelectorAll('.command-palette-item').forEach((item, index) => {
+                item.classList.toggle('selected', index === selectedIndex);
+            });
+
+            // Scroll selected item into view
+            const selectedItem = document.querySelector('.command-palette-item.selected');
+            if (selectedItem) {
+                selectedItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            }
+        }
+
+        function navigateToResult(index) {
+            if (currentResults[index]) {
+                window.location.href = currentResults[index].url;
+            }
+        }
+
+        function openPalette() {
+            commandPalette.classList.add('active');
+            commandPaletteInput.value = '';
+            commandPaletteInput.focus();
+            renderResults(commands);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePalette() {
+            commandPalette.classList.remove('active');
+            commandPaletteInput.value = '';
+            document.body.style.overflow = '';
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Cmd+K or Ctrl+K to open
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                if (commandPalette.classList.contains('active')) {
+                    closePalette();
+                } else {
+                    openPalette();
+                }
+            }
+
+            // Escape to close
+            if (e.key === 'Escape' && commandPalette.classList.contains('active')) {
+                e.preventDefault();
+                closePalette();
+            }
+
+            // Arrow keys and Enter for navigation
+            if (commandPalette.classList.contains('active')) {
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    selectedIndex = (selectedIndex + 1) % currentResults.length;
+                    updateSelection();
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    selectedIndex = (selectedIndex - 1 + currentResults.length) % currentResults.length;
+                    updateSelection();
+                } else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    navigateToResult(selectedIndex);
+                }
+            }
+        });
+
+        // Search input
+        commandPaletteInput.addEventListener('input', (e) => {
+            const results = searchCommands(e.target.value);
+            renderResults(results);
+        });
+
+        // Close on backdrop click
+        commandPalette.addEventListener('click', (e) => {
+            if (e.target === commandPalette) {
+                closePalette();
+            }
+        });
 
         // Scroll to top button
         const scrollToTopBtn = document.getElementById('scrollToTop');
