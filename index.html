@@ -39,9 +39,9 @@
     </script>
 
     <link rel="preload" href="/assets/logo-icon.svg" as="image" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="preload" href="/assets/fonts/nunito-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/nunito-700.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/fonts.css">
     <style>
         * {
             margin: 0;
@@ -562,6 +562,23 @@
         }
         .skip-link:focus {
             top: 0;
+        }
+
+        /* Reduced motion support (WCAG 2.1) */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            /* Disable canvas animation */
+            #canvas {
+                display: none !important;
+            }
         }
     </style>
 </head>
