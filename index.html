@@ -140,11 +140,15 @@
         .nav-links a {
             font-size: 14px;
             color: var(--text-secondary);
-            transition: color 0.2s;
+            transition: all 0.2s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
         }
 
         .nav-links a:hover {
             color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-1px);
         }
 
         /* Background decoration */
@@ -235,12 +239,14 @@
             color: var(--text-secondary);
             padding-bottom: 2px;
             border-bottom: 1px solid var(--border);
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .hero-links a:hover {
             color: var(--text);
             border-color: var(--text);
+            transform: translateY(-2px);
+            text-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
         }
 
         /* Products */
@@ -274,11 +280,13 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 32px;
-            transition: border-color 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .product-card:hover {
             border-color: rgba(255,255,255,0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(61, 186, 172, 0.1);
         }
 
         .product-badge {
@@ -313,11 +321,12 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: color 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .product-link:hover {
             color: var(--text);
+            gap: 10px;
         }
 
         .product-link svg {
@@ -382,11 +391,27 @@
         .footer-links a {
             font-size: 13px;
             color: var(--text-tertiary);
-            transition: color 0.2s;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--text);
+            transition: width 0.3s ease;
         }
 
         .footer-links a:hover {
             color: var(--text);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
         }
 
         /* Animations */
