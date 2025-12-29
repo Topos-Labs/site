@@ -1153,5 +1153,82 @@
         });
     })();
     </script>
+
+    <!-- Error Logging -->
+    <script>
+        (function() {
+            function logError(error, source) {
+                const errorData = {
+                    message: error.message || String(error),
+                    stack: error.stack || '',
+                    source: source,
+                    url: window.location.href,
+                    userAgent: navigator.userAgent,
+                    timestamp: Date.now()
+                };
+
+                const body = JSON.stringify(errorData);
+                if (navigator.sendBeacon) {
+                    navigator.sendBeacon('/api/errors', body);
+                } else {
+                    fetch('/api/errors', {
+                        method: 'POST',
+                        body: body,
+                        headers: { 'Content-Type': 'application/json' },
+                        keepalive: true
+                    }).catch(console.error);
+                }
+            }
+
+            // Catch global errors
+            window.addEventListener('error', function(event) {
+                logError(event.error || { message: event.message }, 'global');
+            });
+
+            // Catch unhandled promise rejections
+            window.addEventListener('unhandledrejection', function(event) {
+                logError(event.reason || { message: 'Unhandled promise rejection' }, 'promise');
+            });
+        })();
+    </script>
+
+    <!-- Web Vitals Tracking -->
+    <script type="module">
+        import { onCLS, onFID, onLCP, onFCP, onTTFB, onINP } from 'https://unpkg.com/web-vitals@3?module';
+
+        function sendToAnalytics(metric) {
+            const body = JSON.stringify({
+                name: metric.name,
+                value: metric.value,
+                rating: metric.rating,
+                delta: metric.delta,
+                id: metric.id,
+                navigationType: metric.navigationType,
+                url: window.location.href,
+                userAgent: navigator.userAgent,
+                timestamp: Date.now()
+            });
+
+            // Use sendBeacon if available, fallback to fetch
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon('/api/vitals', body);
+            } else {
+                fetch('/api/vitals', {
+                    method: 'POST',
+                    body: body,
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true
+                }).catch(console.error);
+            }
+        }
+
+        // Capture Core Web Vitals
+        onCLS(sendToAnalytics);
+        onFID(sendToAnalytics); // Fallback for older browsers
+        onINP(sendToAnalytics); // Interaction to Next Paint (replaces FID)
+        onLCP(sendToAnalytics);
+        onFCP(sendToAnalytics);
+        onTTFB(sendToAnalytics);
+    </script>
 </body>
 </html>
