@@ -564,6 +564,29 @@
             top: 0;
         }
 
+        /* Enhanced focus indicators (WCAG 2.1 Level AA) */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible,
+        select:focus-visible {
+            outline: 3px solid #3DBAAC;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:focus-visible {
+            background: rgba(61, 186, 172, 0.15);
+            padding: 6px 12px;
+            margin: -6px -12px;
+            outline: 2px solid #3DBAAC;
+        }
+
+        .cta-button:focus-visible {
+            outline: 3px solid #3DBAAC;
+            outline-offset: 3px;
+        }
+
         /* Reduced motion support (WCAG 2.1) */
         @media (prefers-reduced-motion: reduce) {
             *,
