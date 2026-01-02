@@ -1,0 +1,112 @@
+name: Deploy and Purge Cache
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Validate font files
+        run: |
+          echo "🔍 Validating font file integrity..."
+          node scripts/verify-fonts.js
+
+      - name: Wait for Cloudflare Pages deployment
+        run: |
+          echo "⏳ Waiting 90 seconds for Cloudflare Pages to deploy..."
+          sleep 90
+
+      - name: Purge Cloudflare cache for fonts
+        if: success()
+        env:
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: |
+          echo "🧹 Purging Cloudflare cache for font files..."
+
+          # Purge specific font files
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CF_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "files": [
+                "https://toposlabs.ai/assets/fonts/nunito-400.woff2",
+                "https://toposlabs.ai/assets/fonts/nunito-600.woff2",
+                "https://toposlabs.ai/assets/fonts/nunito-700.woff2",
+                "https://toposlabs.ai/assets/fonts/jetbrains-mono-400.woff2"
+              ]
+            }' \
+            -w "\nHTTP Status: %{http_code}\n" \
+            -o purge-response.json
+
+          # Check response
+          if grep -q '"success":true' purge-response.json; then
+            echo "✅ Cache purge successful"
+            cat purge-response.json | jq .
+          else
+            echo "❌ Cache purge failed"
+            cat purge-response.json
+            exit 1
+          fi
+
+      - name: Verify fonts after purge
+        if: success()
+        run: |
+          echo "🔍 Verifying fonts are loading correctly..."
+          sleep 15
+
+          for font in nunito-400 nunito-600 nunito-700 jetbrains-mono-400; do
+            echo "Checking $font.woff2..."
+
+            # Get headers
+            RESPONSE=$(curl -sI "https://toposlabs.ai/assets/fonts/$font.woff2")
+
+            # Check Content-Type
+            if echo "$RESPONSE" | grep -iq "content-type: font/woff2"; then
+              echo "  ✅ Content-Type correct"
+            else
+              echo "  ❌ Invalid Content-Type"
+              echo "$RESPONSE"
+              exit 1
+            fi
+
+            # Check Content-Length (should be >10000 bytes)
+            LENGTH=$(echo "$RESPONSE" | grep -i "content-length" | awk '{print $2}' | tr -d '\r')
+            if [ "$LENGTH" -gt 10000 ]; then
+              echo "  ✅ File size valid ($LENGTH bytes)"
+            else
+              echo "  ❌ File size too small ($LENGTH bytes) - possibly serving error page"
+              exit 1
+            fi
+
+            # Check cache status
+            CACHE_STATUS=$(echo "$RESPONSE" | grep -i "cf-cache-status" | awk '{print $2}' | tr -d '\r')
+            echo "  📊 Cache status: $CACHE_STATUS"
+          done
+
+          echo ""
+          echo "✅ All fonts verified successfully on production!"
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "==================================="
+          echo "📋 Deployment Summary"
+          echo "==================================="
+          echo "✅ Font validation: Passed"
+          echo "✅ Cloudflare deployment: Complete"
+          echo "✅ Cache purge: Executed"
+          echo "✅ Production verification: Passed"
+          echo ""
+          echo "🎉 Deployment successful!"

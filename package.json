@@ -1,0 +1,25 @@
+{
+  "name": "toposlabs-site",
+  "version": "1.0.0",
+  "description": "Topos Labs static website with typography optimizations",
+  "private": true,
+  "scripts": {
+    "verify-fonts": "node scripts/verify-fonts.js",
+    "verify": "npm run verify-fonts",
+    "precommit": "npm run verify-fonts",
+    "deploy": "npm run verify-fonts && echo '✅ Ready to deploy'",
+    "test": "npm run verify-fonts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Topos-Labs/toposlabs-site"
+  },
+  "keywords": [
+    "developer-tools",
+    "ai",
+    "llm",
+
+  ],
+  "author": "Topos Labs",
+  "license": "UNLICENSED"
+}

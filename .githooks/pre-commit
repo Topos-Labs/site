@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Font File Integrity Pre-commit Hook
+# Prevents committing corrupted or invalid font files
+
+echo "🔍 Running pre-commit font verification..."
+
+# Check if font files are being committed
+FONT_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(woff2|woff|ttf|otf)$')
+
+if [ -n "$FONT_FILES" ]; then
+  echo "⚠️  Font files detected in commit:"
+  echo "$FONT_FILES" | sed 's/^/   - /'
+  echo ""
+
+  # Run font verification script
+  if [ -f "scripts/verify-fonts.js" ]; then
+    node scripts/verify-fonts.js
+    if [ $? -ne 0 ]; then
+      echo ""
+      echo "❌ Font verification failed - commit aborted"
+      echo "   Fix the font issues above and try again"
+      exit 1
+    fi
+  else
+    echo "⚠️  Warning: Font verification script not found"
+    echo "   Continuing anyway, but fonts are not verified"
+  fi
+
+  # Prompt user to confirm
+  echo ""
+  read -p "✋ Font files will be committed. Continue? (y/n) " -n 1 -r
+  echo ""
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "❌ Commit aborted by user"
+    exit 1
+  fi
+fi
+
+echo "✅ Pre-commit checks passed"
+exit 0
