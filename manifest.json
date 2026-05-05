@@ -1,7 +1,7 @@
 {
   "name": "Topos Labs",
   "short_name": "Topos Labs",
-
+  "description": "Practical AI infrastructure and developer systems from Topos Labs.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
@@ -16,34 +16,7 @@
       "purpose": "any"
     }
   ],
-  "shortcuts": [
-    {
-
-
-      "description": "Repository context generator for LLMs",
-
-      "icons": [
-        {
-          "src": "/assets/logo-icon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
-        }
-      ]
-    },
-    {
-      "name": "Documentation",
-      "short_name": "Docs",
-
-      "url": "/docs/",
-      "icons": [
-        {
-          "src": "/assets/logo-icon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
-        }
-      ]
-    }
-  ],
+  "shortcuts": [],
   "related_applications": [],
   "prefer_related_applications": false
 }

@@ -1,17 +1,13 @@
 // Service Worker for Topos Labs PWA
 // Provides offline support and caching
 
-const CACHE_NAME = 'toposlabs-v1';
-const RUNTIME = 'runtime';
+const CACHE_NAME = 'toposlabs-v2';
+const RUNTIME = 'toposlabs-runtime-v2';
 
 // Core files to cache immediately
 const PRECACHE_URLS = [
   '/',
   '/index.html',
-
-
-  '/docs/',
-  '/docs/index.html',
   '/assets/logo-icon.svg',
   '/assets/fonts.css',
   '/assets/fonts/nunito-400.woff2',

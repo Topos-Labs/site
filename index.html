@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topos Labs - Developer Tools for the AI Era</title>
-
+    <meta name="description" content="Topos Labs builds practical AI infrastructure and developer systems for reliable, high-performance software workflows.">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://toposlabs.ai/">
     <meta property="og:title" content="Topos Labs - Developer Tools for the AI Era">
-
+    <meta property="og:description" content="Topos Labs builds practical AI infrastructure and developer systems for reliable, high-performance software workflows.">
     <meta property="og:site_name" content="Topos Labs">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://toposlabs.ai/">
     <meta name="twitter:title" content="Topos Labs - Developer Tools for the AI Era">
-
+    <meta name="twitter:description" content="Topos Labs builds practical AI infrastructure and developer systems for reliable, high-performance software workflows.">
 
     <!-- Additional Meta -->
     <meta name="theme-color" content="#0a0a0a">
@@ -47,8 +47,6 @@
     <!-- Resource Hints for Performance -->
     <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
-
-    <link rel="prefetch" href="/docs/" as="document">
 
     <style>
         /* Self-hosted fonts - Inlined for performance */
@@ -991,8 +989,8 @@
                 <span><span class="logo-topos">Topos</span> <span class="logo-labs">Labs</span></span>
             </a>
             <ul class="nav-links">
-
-                <li><a href="/docs/">Docs</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
                 <li><a href="https://github.com/Topos-Labs" target="_blank" rel="noopener" aria-label="GitHub (opens in new tab)">GitHub</a></li>
             </ul>
             <button class="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
@@ -1003,8 +1001,8 @@
         </div>
     </nav>
     <div id="mobile-menu" class="mobile-menu" role="navigation" aria-label="Mobile navigation">
-
-        <a href="/docs/">Documentation</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
         <a href="https://github.com/Topos-Labs" target="_blank" rel="noopener" aria-label="GitHub (opens in new tab)">GitHub</a>
     </div>
 
@@ -1019,16 +1017,16 @@
                     type="text"
                     class="command-palette-input"
                     id="commandPaletteInput"
-                    placeholder="Search documentation..."
+                    placeholder="Search pages..."
                     autocomplete="off"
-                    aria-label="Search documentation"
+                    aria-label="Search pages"
                 />
                 <div class="command-palette-shortcut">
                     <span class="command-palette-key">ESC</span>
                 </div>
             </div>
             <div class="command-palette-results" id="commandPaletteResults">
-                <div class="command-palette-empty">Type to search documentation...</div>
+                <div class="command-palette-empty">Type to search pages...</div>
             </div>
             <div class="command-palette-footer">
                 <div class="command-palette-hint">
@@ -1057,7 +1055,7 @@
                     <h1>Building developer tools for the AI era</h1>
                     <p>We create high-performance tools that help developers work more effectively with large language models.</p>
                     <div class="hero-links">
-
+                        <a href="#products">View products</a>
                         <a href="https://github.com/Topos-Labs" target="_blank" rel="noopener" aria-label="GitHub (opens in new tab)">GitHub</a>
                     </div>
                 </div>
@@ -1068,17 +1066,14 @@
             <div class="container">
                 <div class="section-label">Products</div>
                 <div class="products-grid">
-
-                        <div class="product-badge">Available</div>
-
-                        <p>High-performance repository context generator for LLMs. Transform codebases into optimized formats for Claude, GPT-4, Gemini, Llama, Mistral, and other models.</p>
+                    <div class="product-card coming-soon">
+                        <div class="product-badge">In Progress</div>
+                        <h3>Applied AI Systems</h3>
+                        <p>Research and development across agent tooling, evaluation workflows, and reliable software automation for engineering teams.</p>
                         <span class="product-link">
-                            Learn more
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
+                            More soon
                         </span>
-                    </a>
+                    </div>
                     <div class="product-card coming-soon">
                         <div class="product-badge">Coming Soon</div>
                         <h3>Mahler</h3>
@@ -1106,7 +1101,7 @@
             <div class="footer-text">© 2025 Topos Labs</div>
             <div class="footer-links">
                 <a href="https://github.com/Topos-Labs" target="_blank" rel="noopener" aria-label="GitHub (opens in new tab)">GitHub</a>
-                <a href="/docs/">Documentation</a>
+                <a href="/sitemap.html">Sitemap</a>
             </div>
         </div>
     </footer>
@@ -1139,17 +1134,8 @@
         // Navigation data
         const commands = [
             { title: 'Home', subtitle: 'Main landing page', url: '/', icon: 'home' },
-
-            { title: 'Documentation', subtitle: 'Getting started guide', url: '/docs/', icon: 'docs' },
-            { title: 'pack command', subtitle: 'Pack repository into LLM context', url: '/docs/commands/pack.html', icon: 'command' },
-            { title: 'map command', subtitle: 'Generate repository map', url: '/docs/commands/map.html', icon: 'command' },
-            { title: 'scan command', subtitle: 'Analyze repository statistics', url: '/docs/commands/scan.html', icon: 'command' },
-            { title: 'index command', subtitle: 'Build symbol index', url: '/docs/commands/index.html', icon: 'command' },
-            { title: 'diff command', subtitle: 'Context for code changes', url: '/docs/commands/diff.html', icon: 'command' },
-            { title: 'impact command', subtitle: 'Analyze change impact', url: '/docs/commands/impact.html', icon: 'command' },
-            { title: 'chunk command', subtitle: 'Split into context chunks', url: '/docs/commands/chunk.html', icon: 'command' },
-            { title: 'init command', subtitle: 'Create configuration file', url: '/docs/commands/init.html', icon: 'command' },
-            { title: 'info command', subtitle: 'Display system information', url: '/docs/commands/info.html', icon: 'command' },
+            { title: 'Products', subtitle: 'Current product work', url: '/#products', icon: 'product' },
+            { title: 'About', subtitle: 'Company overview', url: '/#about', icon: 'docs' },
             { title: 'GitHub', subtitle: 'View source code', url: 'https://github.com/Topos-Labs', icon: 'github' }
         ];
 
@@ -1816,7 +1802,7 @@
         "prefetch": [
             {
                 "source": "list",
-
+                "urls": ["/"]
             }
         ],
         "prerender": [

@@ -35,8 +35,6 @@ jobs:
         with:
           urls: |
             https://toposlabs.ai/
-
-            https://toposlabs.ai/docs/
           uploadArtifacts: true
           temporaryPublicStorage: true
 
